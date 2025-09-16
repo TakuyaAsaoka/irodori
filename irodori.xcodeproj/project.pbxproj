@@ -29,9 +29,22 @@
 		C9EAC6952E772E300032B64C /* irodoriUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = irodoriUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		C9FD9E672E799225007A4303 /* Exceptions for "irodori" folder in "irodori" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = C9EAC67D2E772E2F0032B64C /* irodori */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		C9EAC6802E772E2F0032B64C /* irodori */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				C9FD9E672E799225007A4303 /* Exceptions for "irodori" folder in "irodori" target */,
+			);
 			path = irodori;
 			sourceTree = "<group>";
 		};
@@ -397,6 +410,8 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = irodori/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "現在地を取得するために使用します";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -424,6 +439,8 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = irodori/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "現在地を取得するために使用します";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
