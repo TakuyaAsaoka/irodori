@@ -9,9 +9,22 @@ import SwiftUI
 
 @main
 struct irodoriApp: App {
-    var body: some Scene {
-        WindowGroup {
-            ModeSelectionView()
+  @State private var isActive = false
+
+  var body: some Scene {
+    WindowGroup {
+      ZStack {
+        if isActive {
+          ModeSelectionView()
+            .transition(.opacity)
+        } else {
+          SplashView {
+            isActive = true
+          }
+          .transition(.opacity)
         }
+      }
+      .animation(.easeInOut(duration: 0.5), value: isActive)
     }
+  }
 }
