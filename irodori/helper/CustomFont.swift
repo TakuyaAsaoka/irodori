@@ -15,5 +15,6 @@ extension Font {
 }
 
 public enum FontNames: String {
+  case notoSansJpRegular = "NotoSansJP-Thin_Regular"
   case notoSansJpBold = "NotoSansJP-Thin_Bold"
 }

@@ -15,7 +15,7 @@ struct irodoriApp: App {
     WindowGroup {
       ZStack {
         if isActive {
-          ModeSelectionView()
+          HomeView()
             .transition(.opacity)
         } else {
           SplashView {
