@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		C97957F22E81A09B00E452B7 /* ResizableSheet in Frameworks */ = {isa = PBXBuildFile; productRef = C97957F12E81A09B00E452B7 /* ResizableSheet */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		C9EAC68C2E772E300032B64C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -65,6 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C97957F22E81A09B00E452B7 /* ResizableSheet in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -125,6 +130,7 @@
 			);
 			name = irodori;
 			packageProductDependencies = (
+				C97957F12E81A09B00E452B7 /* ResizableSheet */,
 			);
 			productName = irodori;
 			productReference = C9EAC67E2E772E2F0032B64C /* irodori.app */;
@@ -208,6 +214,9 @@
 			);
 			mainGroup = C9EAC6752E772E2F0032B64C;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				C97957F02E81A09B00E452B7 /* XCRemoteSwiftPackageReference "ResizableSheet" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = C9EAC67F2E772E2F0032B64C /* Products */;
 			projectDirPath = "";
@@ -571,6 +580,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C97957F02E81A09B00E452B7 /* XCRemoteSwiftPackageReference "ResizableSheet" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mtj0928/ResizableSheet";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.0.5;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C97957F12E81A09B00E452B7 /* ResizableSheet */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C97957F02E81A09B00E452B7 /* XCRemoteSwiftPackageReference "ResizableSheet" */;
+			productName = ResizableSheet;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = C9EAC6762E772E2F0032B64C /* Project object */;
 }

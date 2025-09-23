@@ -1,0 +1,15 @@
+{
+  "originHash" : "c7ea7c6e4440a767779bbbc0b3637d3373320b0957675179dbf69ada95d7e535",
+  "pins" : [
+    {
+      "identity" : "resizablesheet",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/mtj0928/ResizableSheet",
+      "state" : {
+        "revision" : "13a498d95fe0a152b153af5b06094524f959cf33",
+        "version" : "0.0.5"
+      }
+    }
+  ],
+  "version" : 3
+}
