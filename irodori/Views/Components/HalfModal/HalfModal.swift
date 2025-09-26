@@ -8,15 +8,15 @@
 import SwiftUI
 
 struct HalfModalView<Content: View>: View {
-  @State private var modalState: ModalState = .middle
+  @State var modalState: ModalState = .middle
   @Binding var position: CGSize
   let viewSize: CGRect
   let lowOffset: CGFloat
   let middleOffset: CGFloat
   let highOffset: CGFloat
-  let content: () -> Content
+  let content: (ModalState) -> Content
 
-  init(position: Binding<CGSize>, viewSize: CGRect, @ViewBuilder content: @escaping () -> Content) {
+  init(position: Binding<CGSize>, viewSize: CGRect, @ViewBuilder content: @escaping (ModalState) -> Content) {
     self._position = position
     self.viewSize = viewSize
     self.lowOffset = viewSize.height * 0.812
@@ -34,9 +34,10 @@ struct HalfModalView<Content: View>: View {
           .frame(width: 50, height: 8)
           .padding(.top)
           .foregroundColor(Color(red: 217/255, green: 217/255, blue: 217/255))
-        content()
+        content(modalState)
           .padding(.leading, 12)
-          .padding(.trailing, 28)
+          .padding(.trailing, 4)
+          .padding(.bottom, 6)
         Spacer()
       }
     }
@@ -101,6 +102,6 @@ struct HalfModalView<Content: View>: View {
   HalfModalView(
     position: Binding.constant(CGSize.zero),
     viewSize: UIScreen.main.bounds,
-    content: { Text("Hello, World!") }
+    content: { _ in Text("Hello, World!") }
   )
 }

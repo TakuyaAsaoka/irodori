@@ -58,8 +58,8 @@ struct MapView: View {
             }
           }
 
-          HalfModalView(position: $modalPosition, viewSize: viewSize) {
-            ModalContentView()
+          HalfModalView(position: $modalPosition, viewSize: viewSize) {modalState in
+            ModalContentView(modalState: modalState)
           }
             .shadow(color: Color.black.opacity(0.2), radius: 4, x: 0, y: -2)
         } else {
@@ -81,8 +81,19 @@ struct MapView: View {
 }
 
 struct ModalContentView: View {
+  let modalState: ModalState
+
+  private func getScrollViewHeight(viewSize: CGRect) -> CGFloat {
+    switch modalState {
+      // TODO: マジックナンバーなので直したい。HalfModalの高さの割合をコンテナの高さと設定してスクロールが効くようにしている。
+      case .high: return viewSize.height * 0.8
+      case .middle: return viewSize.height * 0.35
+      case .low: return viewSize.height * 0.05
+    }
+  }
+
   var body: some View {
-    VStack {
+    VStack(spacing: 25) {
       HStack(alignment: .bottom) {
         NotoBoldText(text: "Nearby Events", size: 20)
         Spacer()
@@ -95,6 +106,51 @@ struct ModalContentView: View {
             .offset(y: 1)
         }
       }
+      .padding(.trailing, 22)
+      ScrollView {
+        LazyVStack(spacing: 18) {
+          ForEach(events) { event in
+            EventListView(
+              title: event.title,
+              imageName: event.imageName,
+              time: event.time,
+              description: event.description
+            )
+            Divider()
+              .background(Color(.sRGB, red: 205/255, green: 205/255, blue: 205/255))
+          }
+        }
+        .padding(.trailing, 22)
+      }
+      .frame(height: getScrollViewHeight(viewSize: UIScreen.main.bounds))
+      .frame(maxWidth: .infinity)
+    }
+  }
+}
+
+struct EventListView: View {
+  let title: String
+  let imageName: String
+  let time: String
+  let description: String
+
+  var body: some View {
+    VStack(alignment: .leading) {
+      HStack {
+        VStack(alignment: .leading, spacing: 8) {
+          NotoBoldText(text: title, size: 16)
+          NotoBoldText(text: time, size: 14)
+            .foregroundColor(Color(.sRGB, red: 31/255, green: 153/255, blue: 0/255))
+        }
+        Spacer()
+        HStack {
+          Image(imageName)
+            .resizable()
+            .scaledToFit()
+            .frame(width: 112, height: 74)
+        }
+      }
+      NotoBoldText(text: description, size: 14)
     }
   }
 }
