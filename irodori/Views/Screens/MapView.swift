@@ -58,7 +58,9 @@ struct MapView: View {
             }
           }
 
-          HalfModalView(position: $modalPosition, viewSize: viewSize)
+          HalfModalView(position: $modalPosition, viewSize: viewSize) {
+            ModalContentView()
+          }
             .shadow(color: Color.black.opacity(0.2), radius: 4, x: 0, y: -2)
         } else {
           ProgressView("Getting current location…")
@@ -75,6 +77,25 @@ struct MapView: View {
     let mapItem = MKMapItem(placemark: MKPlacemark(coordinate: coordinate))
     mapItem.name = "目的地"
     mapItem.openInMaps(launchOptions: [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving])
+  }
+}
+
+struct ModalContentView: View {
+  var body: some View {
+    VStack {
+      HStack(alignment: .bottom) {
+        NotoBoldText(text: "Nearby Events", size: 20)
+        Spacer()
+        HStack {
+          NotoBoldText(text: "Sort", size: 16)
+          Image("InvertedTriangle")
+            .resizable()
+            .scaledToFit()
+            .frame(width: 10, height: 8)
+            .offset(y: 1)
+        }
+      }
+    }
   }
 }
 
