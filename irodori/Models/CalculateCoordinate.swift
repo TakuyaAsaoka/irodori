@@ -20,11 +20,40 @@ func randomCoordinate(around coordinate: CLLocationCoordinate2D, radiusMeters: D
   let w = radiusDegrees * sqrt(u)
   let t = 2 * Double.pi * v
 
-  let deltaLat = w * cos(t)
+  let verticalScale = 1.2
+
+  let deltaLat = verticalScale * w * cos(t)
   let deltaLon = w * sin(t) / cos(coordinate.latitude * .pi / 180)
 
   return CLLocationCoordinate2D(
     latitude: coordinate.latitude + deltaLat,
     longitude: coordinate.longitude + deltaLon
   )
+}
+
+func regionThatFitsAll(points: [CLLocationCoordinate2D]) -> MKCoordinateRegion? {
+  guard !points.isEmpty else { return nil }
+
+  let lats  = points.map { $0.latitude }
+  let longs = points.map { $0.longitude }
+
+  let minLat = lats.min()!
+  let maxLat = lats.max()!
+  let minLon = longs.min()!
+  let maxLon = longs.max()!
+
+  // HalfModalより上に全てを表示させるため、一番南の場所から少し下がった所を中心とする
+  let centerLat = minLat - (maxLat - minLat) * 0.2
+
+  // 中心
+  let center = CLLocationCoordinate2D(
+    latitude: centerLat,
+    longitude: (minLon + maxLon) / 2
+  )
+  // 余白を追加
+  let span = MKCoordinateSpan(
+    latitudeDelta: (maxLat - centerLat) * 2.2,
+    longitudeDelta: (maxLon - minLon) * 1.2
+  )
+  return MKCoordinateRegion(center: center, span: span)
 }

@@ -12,7 +12,7 @@ struct MapView: View {
   @StateObject private var locationManager = LocationManager()
 
   @State private var position: MapCameraPosition = .automatic
-  @State private var destination: CLLocationCoordinate2D? = nil
+  @State private var destinations: [CLLocationCoordinate2D] = []
   @State private var isShowingEventMap = false
 
   @State var modalPosition = CGSize.zero
@@ -21,34 +21,42 @@ struct MapView: View {
   var body: some View {
     NavigationStack {
       ZStack {
-        if let _ = locationManager.currentLocation {
+        if let currentLocation = locationManager.currentLocation {
           Map(position: $position) {
-            if let dest = destination {
-              Annotation("目的地", coordinate: dest) {
+            ForEach(Array(destinations.enumerated()), id: \.offset) { index, dest in
+              Annotation("", coordinate: dest) {
                 Button {
                   isShowingEventMap = true
                 } label: {
-                  Image(systemName: "mappin.circle.fill")
-                    .font(.title)
-                    .foregroundColor(.red)
+                  Image("DestinationPin")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 60, height: 75)
                 }
+                .accessibilityHidden(true)
               }
+            }
+            Annotation("", coordinate: currentLocation) {
+                Image("CurrentLocationPin")
+                  .resizable()
+                  .scaledToFit()
+                  .frame(width: 42, height: 52)
+                  .accessibilityHidden(true)
             }
           }
           .onReceive(locationManager.$currentLocation) { coordinate in
-            if let coordinate, position == .automatic {
-              position = .region(
-                MKCoordinateRegion(
-                  center: coordinate,
-                  span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
-                )
-              )
-              if destination == nil {
-                destination = randomCoordinate(around: coordinate, radiusMeters: 3000)
+            if let coordinate {
+              if destinations.isEmpty {
+                destinations = (0..<5).map { _ in
+                  randomCoordinate(around: coordinate, radiusMeters: 10000)
+                }
+              }
+              let allPoints = [coordinate] + destinations
+              if let region = regionThatFitsAll(points: allPoints) {
+                position = .region(region)
               }
             }
           }
-          .toolbar(.hidden, for: .navigationBar)
 
           HalfModalView(position: $modalPosition, viewSize: viewSize)
             .shadow(color: Color.black.opacity(0.2), radius: 4, x: 0, y: -2)
@@ -56,6 +64,7 @@ struct MapView: View {
           ProgressView("Getting current location…")
         }
       }
+      .toolbar(.hidden, for: .navigationBar)
       .navigationDestination(isPresented: $isShowingEventMap) {
         EventMapView()
       }

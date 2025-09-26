@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HalfModalView: View {
-  @State private var modalState: ModalState = .low
+  @State private var modalState: ModalState = .middle
   @Binding var position: CGSize
   let viewSize: CGRect
   let lowOffset: CGFloat
