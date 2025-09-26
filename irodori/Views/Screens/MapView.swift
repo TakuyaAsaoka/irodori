@@ -45,7 +45,7 @@ struct MapView: View {
             }
           }
           .onReceive(locationManager.$currentLocation) { coordinate in
-            if let coordinate {
+            if let coordinate, position == .automatic {
               if destinations.isEmpty {
                 destinations = (0..<5).map { _ in
                   randomCoordinate(around: coordinate, radiusMeters: 10000)
