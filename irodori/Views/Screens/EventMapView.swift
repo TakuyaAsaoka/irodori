@@ -60,6 +60,49 @@ struct EventMapView: View {
       }
       .position(x: 176, y: 630)
 
+      Spacer()
+      VStack(spacing: 8) {
+        VStack(spacing: 0) {
+          Image("EventAvailabilityPin")
+            .resizable()
+            .scaledToFit()
+            .frame(width: 39, height: 65)
+          NotoBoldText(text: "Availability", size: 8)
+            .foregroundColor(Color(.sRGB, red: 122/255, green: 203/255, blue: 176/255))
+        }
+        VStack(spacing: 0) {
+          Image("EventLimitedAvailabilityPin")
+            .resizable()
+            .scaledToFit()
+            .frame(width: 41, height: 48)
+          NotoBoldText(text: "Limited\nAvailability", size: 8)
+            .foregroundColor(Color(.sRGB, red: 1, green: 209/255, blue: 45/255))
+            .multilineTextAlignment(.center)
+        }
+        VStack(spacing: 0) {
+          Image("EventNoAvailabilityPin")
+            .resizable()
+            .scaledToFit()
+            .frame(width: 39, height: 54)
+          NotoBoldText(text: "Availability", size: 8)
+            .foregroundColor(Color(.sRGB, red: 252/255, green: 68/255, blue: 64/255))
+        }
+        VStack(spacing: 0) {
+          Image("EventMyLockerPin")
+            .resizable()
+            .scaledToFit()
+            .frame(width: 47, height: 57)
+          NotoBoldText(text: "My\nLocker", size: 8)
+            .foregroundColor(Color(.sRGB, red: 27/255, green: 93/255, blue: 215/255))
+            .multilineTextAlignment(.center)
+        }
+      }
+      .frame(width: 55, height: 351)
+      .background(Color.white)
+      .cornerRadius(32)
+      .padding(.leading, 320)
+      .padding(.bottom, 130)
+
       FooterButton()
         .padding(.bottom, 30)
     }
