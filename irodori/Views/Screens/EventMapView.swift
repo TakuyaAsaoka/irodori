@@ -12,10 +12,10 @@ struct EventMapView: View {
       ZStack {
         Image("EventMap")
           .resizable()
-          .scaledToFill()
-          .aspectRatio(contentMode: .fill)
-          .ignoresSafeArea()
+//          .scaledToFill()
+//          .aspectRatio(contentMode: .fill)
       }
+      .ignoresSafeArea()
     }
 }
 

@@ -19,57 +19,56 @@ struct MapView: View {
   @State var viewSize = UIScreen.main.bounds
 
   var body: some View {
-    NavigationStack {
-      ZStack {
-        if let currentLocation = locationManager.currentLocation {
-          Map(position: $position) {
-            ForEach(Array(destinations.enumerated()), id: \.offset) { index, dest in
-              Annotation("", coordinate: dest) {
-                Button {
-                  isShowingEventMap = true
-                } label: {
-                  Image("DestinationPin")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 60, height: 75)
-                }
-                .accessibilityHidden(true)
-              }
-            }
-            Annotation("", coordinate: currentLocation) {
-                Image("CurrentLocationPin")
+    ZStack {
+      if let currentLocation = locationManager.currentLocation {
+        Map(position: $position) {
+          ForEach(Array(destinations.enumerated()), id: \.offset) { index, dest in
+            Annotation("", coordinate: dest) {
+              Button {
+                isShowingEventMap = true
+              } label: {
+                Image("DestinationPin")
                   .resizable()
                   .scaledToFit()
-                  .frame(width: 42, height: 52)
-                  .accessibilityHidden(true)
+                  .frame(width: 60, height: 75)
+              }
+              .accessibilityHidden(true)
             }
           }
-          .onReceive(locationManager.$currentLocation) { coordinate in
-            if let coordinate, position == .automatic {
-              if destinations.isEmpty {
-                destinations = (0..<5).map { _ in
-                  randomCoordinate(around: coordinate, radiusMeters: 10000)
-                }
-              }
-              let allPoints = [coordinate] + destinations
-              if let region = regionThatFitsAll(points: allPoints) {
-                position = .region(region)
-              }
-            }
+          Annotation("", coordinate: currentLocation) {
+              Image("CurrentLocationPin")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 42, height: 52)
+                .accessibilityHidden(true)
           }
-
-          HalfModalView(position: $modalPosition, viewSize: viewSize) {modalState in
-            ModalContentView(modalState: modalState)
-          }
-            .shadow(color: Color.black.opacity(0.2), radius: 4, x: 0, y: -2)
-        } else {
-          ProgressView("Getting current location…")
         }
+        .onReceive(locationManager.$currentLocation) { coordinate in
+          if let coordinate, position == .automatic {
+            if destinations.isEmpty {
+              destinations = (0..<5).map { _ in
+                randomCoordinate(around: coordinate, radiusMeters: 10000)
+              }
+            }
+            let allPoints = [coordinate] + destinations
+            if let region = regionThatFitsAll(points: allPoints) {
+              position = .region(region)
+            }
+          }
+        }
+
+        HalfModalView(position: $modalPosition, viewSize: viewSize) {modalState in
+          ModalContentView(modalState: modalState)
+        }
+          .shadow(color: Color.black.opacity(0.2), radius: 4, x: 0, y: -2)
+      } else {
+        ProgressView("Getting current location…")
       }
-      .toolbar(.hidden, for: .navigationBar)
-      .navigationDestination(isPresented: $isShowingEventMap) {
-        EventMapView()
-      }
+    }
+    .navigationBarBackButtonHidden(false)
+    .toolbarBackground(.hidden, for: .navigationBar)
+    .navigationDestination(isPresented: $isShowingEventMap) {
+      EventMapView()
     }
   }
 
