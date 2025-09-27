@@ -13,8 +13,10 @@ struct RootView: View {
   var body: some View {
     ZStack {
       if isActive {
-        HomeView()
-          .transition(.opacity)
+        NavigationStack {
+          HomeView()
+            .transition(.opacity)
+        }
       } else {
         SplashView {
           isActive = true

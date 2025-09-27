@@ -13,7 +13,9 @@ struct WhiteRoundedButtonView: View {
   let action: () -> Void
 
   var body: some View {
-    Button(action: action) {
+    Button {
+      action()
+    } label: {
       NotoBoldText(text: text, size: 20)
         .foregroundColor(Color(red: 198/255, green: 150/255, blue: 69/255))
         .padding(.vertical, 16)
